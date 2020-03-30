@@ -71,6 +71,25 @@ function useAllPages({ userId }) {
   )
 
   // use a query and effect combination to re-fetch and update the list
+  const liveQuery = useQuery(gql`
+    query {
+      allPages {
+        userId
+        pageId
+        createdAt
+        pageName
+      }
+    }
+  `)
+
+  useEffect(() => {
+    // if data loaded successfully
+    if (liveQuery.data) {
+      setPageList(
+        liveQuery.data.allPages.filter(page => page.userId === userId)
+      )
+    }
+  }, [liveQuery.data])
 
   return pageList
 }
