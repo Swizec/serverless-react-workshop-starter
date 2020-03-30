@@ -1,12 +1,25 @@
 import { ApolloServer, gql } from "apollo-server-lambda";
 
-// import { createPage, savePage } from "./mutations";
+import { createPage } from "./mutations";
 // import { allPages, page } from "./queries";
 
 // this is where we define the shape of our API
 const schema = gql`
+    type LandingPage {
+        userId: String
+        pageId: String
+        createdAt: String
+        lastUpdatedAt: String
+        pageName: String
+        content: String
+    }
+
     type Query {
         helloworld: String
+    }
+
+    type Mutation {
+        createPage(userId: String, pageName: String): LandingPage
     }
 `;
 
@@ -14,8 +27,10 @@ const schema = gql`
 const resolvers = {
     Query: {
         helloworld: () => "hello world"
+    },
+    Mutation: {
+        createPage
     }
-    // Mutation: {}
 };
 
 const server = new ApolloServer({ typeDefs: schema, resolvers });
