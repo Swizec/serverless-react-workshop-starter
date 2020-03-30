@@ -140,7 +140,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-react-workshop/dev/1585605947504-2020-03-30T22:05:47.504Z/serverless-react-workshop.zip"
+                "S3Key": "serverless/serverless-react-workshop/dev/1585606145812-2020-03-30T22:09:05.812Z/serverless-react-workshop.zip"
               },
               "FunctionName": "serverless-react-workshop-dev-graphql",
               "Handler": "dist/graphql.handler",
@@ -165,14 +165,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "GraphqlLambdaVersionEbS6dxzKpuT8tixjpYbFIaOujjYirSEA1m3qgmojatI": {
+          "GraphqlLambdaVersionYWJPSeuQwpr1AmJexVC2oVUOKL7xAGQBvjs5jebWfA": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GraphqlLambdaFunction"
               },
-              "CodeSha256": "un97HIbItNf5KfmtbD9S7VWjqoUQapqSQYhHxZlJmCc="
+              "CodeSha256": "IMqOAUETLyJBd3qrvzik3ksx/jorRILqwJQYV6FDk9E="
             }
           },
           "ApiGatewayRestApi": {
@@ -334,7 +334,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1585605939100": {
+          "ApiGatewayDeployment1585606136731": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -425,7 +425,7 @@
           "GraphqlLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GraphqlLambdaVersionEbS6dxzKpuT8tixjpYbFIaOujjYirSEA1m3qgmojatI"
+              "Ref": "GraphqlLambdaVersionYWJPSeuQwpr1AmJexVC2oVUOKL7xAGQBvjs5jebWfA"
             }
           },
           "ServiceEndpoint": {
@@ -588,7 +588,7 @@
     "artifact": "/Users/Swizec/Documents/workshops/serverless-react-workshop-starter/server/.serverless/serverless-react-workshop.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/serverless-react-workshop/dev/1585605947504-2020-03-30T22:05:47.504Z",
+    "artifactDirectoryName": "serverless/serverless-react-workshop/dev/1585606145812-2020-03-30T22:09:05.812Z",
     "artifact": "serverless-react-workshop.zip"
   }
 }

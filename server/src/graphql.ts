@@ -14,8 +14,8 @@ const schema = gql`
 const resolvers = {
     Query: {
         helloworld: () => "hello world"
-    },
-    Mutation: {}
+    }
+    // Mutation: {}
 };
 
 const server = new ApolloServer({ typeDefs: schema, resolvers });
