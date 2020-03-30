@@ -15,7 +15,11 @@ import { client } from "./src/apollo"
 // Add your Auth0 config values
 export const wrapRootElement = ({ element }) => (
   <ApolloProvider client={client}>
-    <AuthProvider navigate={navigate} auth0_domain="" auth0_client_id="">
+    <AuthProvider
+      navigate={navigate}
+      auth0_domain="serverless-react-workshop.auth0.com"
+      auth0_client_id="WwSXiJ1y4g3ynlby4EnAVEGz6Ul16OpQ"
+    >
       {element}
     </AuthProvider>
   </ApolloProvider>
