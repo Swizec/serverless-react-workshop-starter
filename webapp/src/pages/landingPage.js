@@ -16,12 +16,13 @@ function useContentFromServer({ userId, pageId, pageContent, setPageContent }) {
   // write a query to fetch page from the server
 
   // use a mutation to create a savePage function
+  const savePage = () => null
 
-  useEffect(() => {
-    if (data) {
-      setPageContent(data.page.content)
-    }
-  }, [data])
+  //   useEffect(() => {
+  //     if (data) {
+  //       setPageContent(data.page.content)
+  //     }
+  //   }, [data])
 
   return savePage
 }

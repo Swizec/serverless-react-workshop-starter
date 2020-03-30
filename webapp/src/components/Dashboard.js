@@ -38,6 +38,7 @@ function useAllPages({ userId }) {
   // get initial page list with a static query
 
   // set local state with a filtered list
+  const pageList = []
 
   // use a query and effect combination to re-fetch and update the list
 
