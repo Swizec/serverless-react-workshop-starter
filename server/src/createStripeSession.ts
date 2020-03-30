@@ -1,5 +1,5 @@
 import { APIGatewayEvent } from "aws-lambda";
-import { getItem } from "./dynamodb";
+import { getItem } from "simple-dynamodb";
 
 const stripeLib = require("stripe");
 

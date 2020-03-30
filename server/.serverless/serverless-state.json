@@ -1,17 +1,17 @@
 {
   "service": {
-    "service": "markdownlandingpage",
+    "service": "serverless-react-workshop",
     "serviceObject": {
-      "name": "markdownlandingpage"
+      "name": "serverless-react-workshop"
     },
     "provider": {
-      "stage": "prod",
+      "stage": "dev",
       "variableSyntax": "\\${([ ~:a-zA-Z0-9._@'\",\\-\\/\\(\\)*]+?)}",
       "name": "aws",
       "runtime": "nodejs12.x",
       "environment": {
-        "USER_TABLE": "markdownlandingpage-users-prod",
-        "PAGE_TABLE": "markdownlandingpage-pages-prod"
+        "USER_TABLE": "serverless-react-workshop-users-dev",
+        "PAGE_TABLE": "serverless-react-workshop-pages-dev"
       },
       "iamRoleStatements": [
         {
@@ -24,19 +24,7 @@
             "dynamodb:UpdateItem",
             "dynamodb:DeleteItem"
           ],
-          "Resource": "arn:aws:dynamodb:us-east-1:*:table/markdownlandingpage-users-prod"
-        },
-        {
-          "Effect": "Allow",
-          "Action": [
-            "dynamodb:Query",
-            "dynamodb:Scan",
-            "dynamodb:GetItem",
-            "dynamodb:PutItem",
-            "dynamodb:UpdateItem",
-            "dynamodb:DeleteItem"
-          ],
-          "Resource": "arn:aws:dynamodb:us-east-1:*:table/markdownlandingpage-pages-prod"
+          "Resource": "arn:aws:dynamodb:us-east-1:*:table/serverless-react-workshop-pages-dev"
         }
       ],
       "region": "us-east-1",
@@ -63,13 +51,7 @@
           "GraphqlLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/markdownlandingpage-prod-graphql"
-            }
-          },
-          "CreateStripeSessionLogGroup": {
-            "Type": "AWS::Logs::LogGroup",
-            "Properties": {
-              "LogGroupName": "/aws/lambda/markdownlandingpage-prod-createStripeSession"
+              "LogGroupName": "/aws/lambda/serverless-react-workshop-dev-graphql"
             }
           },
           "IamRoleLambdaExecution": {
@@ -97,8 +79,8 @@
                     "Fn::Join": [
                       "-",
                       [
-                        "prod",
-                        "markdownlandingpage",
+                        "dev",
+                        "serverless-react-workshop",
                         "lambda"
                       ]
                     ]
@@ -113,7 +95,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/markdownlandingpage-prod*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-react-workshop-dev*:*"
                           }
                         ]
                       },
@@ -124,15 +106,12 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/markdownlandingpage-prod*:*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/serverless-react-workshop-dev*:*:*"
                           }
                         ]
                       },
                       {
                         "$ref": "$[\"service\"][\"provider\"][\"iamRoleStatements\"][0]"
-                      },
-                      {
-                        "$ref": "$[\"service\"][\"provider\"][\"iamRoleStatements\"][1]"
                       }
                     ]
                   }
@@ -143,8 +122,8 @@
                 "Fn::Join": [
                   "-",
                   [
-                    "markdownlandingpage",
-                    "prod",
+                    "serverless-react-workshop",
+                    "dev",
                     {
                       "Ref": "AWS::Region"
                     },
@@ -161,9 +140,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/markdownlandingpage/prod/1584968786184-2020-03-23T13:06:26.184Z/markdownlandingpage.zip"
+                "S3Key": "serverless/serverless-react-workshop/dev/1585605947504-2020-03-30T22:05:47.504Z/serverless-react-workshop.zip"
               },
-              "FunctionName": "markdownlandingpage-prod-graphql",
+              "FunctionName": "serverless-react-workshop-dev-graphql",
               "Handler": "dist/graphql.handler",
               "MemorySize": 1024,
               "Role": {
@@ -176,8 +155,8 @@
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "USER_TABLE": "markdownlandingpage-users-prod",
-                  "PAGE_TABLE": "markdownlandingpage-pages-prod"
+                  "USER_TABLE": "serverless-react-workshop-users-dev",
+                  "PAGE_TABLE": "serverless-react-workshop-pages-dev"
                 }
               }
             },
@@ -186,62 +165,20 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "GraphqlLambdaVersion9ad7dEUWHxQc87vr1KVkuLzLDAlyS6nrHnITozjE": {
+          "GraphqlLambdaVersionEbS6dxzKpuT8tixjpYbFIaOujjYirSEA1m3qgmojatI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GraphqlLambdaFunction"
               },
-              "CodeSha256": "8JX01bQS7folv2LSsITWqiQx09E10wcVEkuXf8FpEXs="
-            }
-          },
-          "CreateStripeSessionLambdaFunction": {
-            "Type": "AWS::Lambda::Function",
-            "Properties": {
-              "Code": {
-                "S3Bucket": {
-                  "Ref": "ServerlessDeploymentBucket"
-                },
-                "S3Key": "serverless/markdownlandingpage/prod/1584968786184-2020-03-23T13:06:26.184Z/markdownlandingpage.zip"
-              },
-              "FunctionName": "markdownlandingpage-prod-createStripeSession",
-              "Handler": "dist/createStripeSession.handler",
-              "MemorySize": 1024,
-              "Role": {
-                "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
-                  "Arn"
-                ]
-              },
-              "Runtime": "nodejs12.x",
-              "Timeout": 6,
-              "Environment": {
-                "Variables": {
-                  "USER_TABLE": "markdownlandingpage-users-prod",
-                  "PAGE_TABLE": "markdownlandingpage-pages-prod"
-                }
-              }
-            },
-            "DependsOn": [
-              "CreateStripeSessionLogGroup",
-              "IamRoleLambdaExecution"
-            ]
-          },
-          "CreateStripeSessionLambdaVersionXxXeoTDK17An0FAabnd3I1c0gdEVUVl1kZs1jp1fnSI": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "CreateStripeSessionLambdaFunction"
-              },
-              "CodeSha256": "8JX01bQS7folv2LSsITWqiQx09E10wcVEkuXf8FpEXs="
+              "CodeSha256": "un97HIbItNf5KfmtbD9S7VWjqoUQapqSQYhHxZlJmCc="
             }
           },
           "ApiGatewayRestApi": {
             "Type": "AWS::ApiGateway::RestApi",
             "Properties": {
-              "Name": "prod-markdownlandingpage",
+              "Name": "dev-serverless-react-workshop",
               "EndpointConfiguration": {
                 "Types": [
                   "EDGE"
@@ -259,45 +196,6 @@
                 ]
               },
               "PathPart": "graphql",
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayResourceCreatestripesession": {
-            "Type": "AWS::ApiGateway::Resource",
-            "Properties": {
-              "ParentId": {
-                "Fn::GetAtt": [
-                  "ApiGatewayRestApi",
-                  "RootResourceId"
-                ]
-              },
-              "PathPart": "createstripesession",
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayResourceCreatestripesessionUseridVar": {
-            "Type": "AWS::ApiGateway::Resource",
-            "Properties": {
-              "ParentId": {
-                "Ref": "ApiGatewayResourceCreatestripesession"
-              },
-              "PathPart": "{userId}",
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayResourceCreatestripesessionUseridVarPageidVar": {
-            "Type": "AWS::ApiGateway::Resource",
-            "Properties": {
-              "ParentId": {
-                "Ref": "ApiGatewayResourceCreatestripesessionUseridVar"
-              },
-              "PathPart": "{pageId}",
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
@@ -344,53 +242,6 @@
               },
               "ResourceId": {
                 "Ref": "ApiGatewayResourceGraphql"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayMethodCreatestripesessionUseridVarPageidVarOptions": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "AuthorizationType": "NONE",
-              "HttpMethod": "OPTIONS",
-              "MethodResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": true,
-                    "method.response.header.Access-Control-Allow-Headers": true,
-                    "method.response.header.Access-Control-Allow-Methods": true,
-                    "method.response.header.Access-Control-Allow-Credentials": true
-                  },
-                  "ResponseModels": {}
-                }
-              ],
-              "RequestParameters": {},
-              "Integration": {
-                "Type": "MOCK",
-                "RequestTemplates": {
-                  "application/json": "{statusCode:200}"
-                },
-                "ContentHandling": "CONVERT_TO_TEXT",
-                "IntegrationResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
-                      "method.response.header.Access-Control-Allow-Credentials": "'false'"
-                    },
-                    "ResponseTemplates": {
-                      "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\".*\")) #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin) #end"
-                    }
-                  }
-                ]
-              },
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceCreatestripesessionUseridVarPageidVar"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -483,63 +334,18 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayMethodCreatestripesessionUseridVarPageidVarGet": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "HttpMethod": "GET",
-              "RequestParameters": {},
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceCreatestripesessionUseridVarPageidVar"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "ApiKeyRequired": false,
-              "AuthorizationType": "NONE",
-              "Integration": {
-                "IntegrationHttpMethod": "POST",
-                "Type": "AWS_PROXY",
-                "Uri": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":apigateway:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":lambda:path/2015-03-31/functions/",
-                      {
-                        "Fn::GetAtt": [
-                          "CreateStripeSessionLambdaFunction",
-                          "Arn"
-                        ]
-                      },
-                      "/invocations"
-                    ]
-                  ]
-                }
-              },
-              "MethodResponses": []
-            }
-          },
-          "ApiGatewayDeployment1584968779450": {
+          "ApiGatewayDeployment1585605939100": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               },
-              "StageName": "prod"
+              "StageName": "dev"
             },
             "DependsOn": [
               "ApiGatewayMethodGraphqlOptions",
-              "ApiGatewayMethodCreatestripesessionUseridVarPageidVarOptions",
               "ApiGatewayMethodGraphqlGet",
-              "ApiGatewayMethodGraphqlPost",
-              "ApiGatewayMethodCreatestripesessionUseridVarPageidVarGet"
+              "ApiGatewayMethodGraphqlPost"
             ]
           },
           "GraphqlLambdaPermissionApiGateway": {
@@ -579,65 +385,6 @@
               }
             }
           },
-          "CreateStripeSessionLambdaPermissionApiGateway": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-              "FunctionName": {
-                "Fn::GetAtt": [
-                  "CreateStripeSessionLambdaFunction",
-                  "Arn"
-                ]
-              },
-              "Action": "lambda:InvokeFunction",
-              "Principal": "apigateway.amazonaws.com",
-              "SourceArn": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:",
-                    {
-                      "Ref": "AWS::Partition"
-                    },
-                    ":execute-api:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId"
-                    },
-                    ":",
-                    {
-                      "Ref": "ApiGatewayRestApi"
-                    },
-                    "/*/*"
-                  ]
-                ]
-              }
-            }
-          },
-          "UsersTable": {
-            "Type": "AWS::DynamoDB::Table",
-            "Properties": {
-              "AttributeDefinitions": [
-                {
-                  "AttributeName": "userId",
-                  "AttributeType": "S"
-                }
-              ],
-              "KeySchema": [
-                {
-                  "AttributeName": "userId",
-                  "KeyType": "HASH"
-                }
-              ],
-              "ProvisionedThroughput": {
-                "ReadCapacityUnits": 1,
-                "WriteCapacityUnits": 1
-              },
-              "TableName": "markdownlandingpage-users-prod"
-            }
-          },
           "PagesTable": {
             "Type": "AWS::DynamoDB::Table",
             "Properties": {
@@ -665,7 +412,7 @@
                 "ReadCapacityUnits": 1,
                 "WriteCapacityUnits": 1
               },
-              "TableName": "markdownlandingpage-pages-prod"
+              "TableName": "serverless-react-workshop-pages-dev"
             }
           }
         },
@@ -678,13 +425,7 @@
           "GraphqlLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GraphqlLambdaVersion9ad7dEUWHxQc87vr1KVkuLzLDAlyS6nrHnITozjE"
-            }
-          },
-          "CreateStripeSessionLambdaFunctionQualifiedArn": {
-            "Description": "Current Lambda function version",
-            "Value": {
-              "Ref": "CreateStripeSessionLambdaVersionXxXeoTDK17An0FAabnd3I1c0gdEVUVl1kZs1jp1fnSI"
+              "Ref": "GraphqlLambdaVersionEbS6dxzKpuT8tixjpYbFIaOujjYirSEA1m3qgmojatI"
             }
           },
           "ServiceEndpoint": {
@@ -705,7 +446,7 @@
                   {
                     "Ref": "AWS::URLSuffix"
                   },
-                  "/prod"
+                  "/dev"
                 ]
               ]
             }
@@ -799,44 +540,7 @@
             }
           }
         ],
-        "name": "markdownlandingpage-prod-graphql",
-        "package": {},
-        "memory": 1024,
-        "timeout": 6,
-        "runtime": "nodejs12.x",
-        "vpc": {}
-      },
-      "createStripeSession": {
-        "handler": "dist/createStripeSession.handler",
-        "events": [
-          {
-            "http": {
-              "path": "createstripesession/{userId}/{pageId}",
-              "method": "get",
-              "cors": {
-                "origins": [
-                  "*"
-                ],
-                "origin": "*",
-                "methods": [
-                  "OPTIONS",
-                  "GET"
-                ],
-                "headers": [
-                  "Content-Type",
-                  "X-Amz-Date",
-                  "Authorization",
-                  "X-Api-Key",
-                  "X-Amz-Security-Token",
-                  "X-Amz-User-Agent"
-                ],
-                "allowCredentials": false
-              },
-              "integration": "AWS_PROXY"
-            }
-          }
-        ],
-        "name": "markdownlandingpage-prod-createStripeSession",
+        "name": "serverless-react-workshop-dev-graphql",
         "package": {},
         "memory": 1024,
         "timeout": 6,
@@ -846,28 +550,6 @@
     },
     "resources": {
       "Resources": {
-        "UsersTable": {
-          "Type": "AWS::DynamoDB::Table",
-          "Properties": {
-            "AttributeDefinitions": [
-              {
-                "AttributeName": "userId",
-                "AttributeType": "S"
-              }
-            ],
-            "KeySchema": [
-              {
-                "AttributeName": "userId",
-                "KeyType": "HASH"
-              }
-            ],
-            "ProvisionedThroughput": {
-              "ReadCapacityUnits": 1,
-              "WriteCapacityUnits": 1
-            },
-            "TableName": "markdownlandingpage-users-prod"
-          }
-        },
         "PagesTable": {
           "Type": "AWS::DynamoDB::Table",
           "Properties": {
@@ -895,7 +577,7 @@
               "ReadCapacityUnits": 1,
               "WriteCapacityUnits": 1
             },
-            "TableName": "markdownlandingpage-pages-prod"
+            "TableName": "serverless-react-workshop-pages-dev"
           }
         }
       },
@@ -903,10 +585,10 @@
     },
     "serviceFilename": "serverless.yml",
     "layers": {},
-    "artifact": "/Users/Swizec/Documents/random-coding/markdownlandingpage.com/server/.serverless/markdownlandingpage.zip"
+    "artifact": "/Users/Swizec/Documents/workshops/serverless-react-workshop-starter/server/.serverless/serverless-react-workshop.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/markdownlandingpage/prod/1584968786184-2020-03-23T13:06:26.184Z",
-    "artifact": "markdownlandingpage.zip"
+    "artifactDirectoryName": "serverless/serverless-react-workshop/dev/1585605947504-2020-03-30T22:05:47.504Z",
+    "artifact": "serverless-react-workshop.zip"
   }
 }
