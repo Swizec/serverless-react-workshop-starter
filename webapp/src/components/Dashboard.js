@@ -9,7 +9,24 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 const CreatePage = ({ userId }) => {
   const [pageName, setPageName] = useState()
   // write a mutation to create a new page
-  const [createPage, { data, loading }] = useMutation()
+  const [createPage, { data, loading }] = useMutation(
+    gql`
+      mutation createPage($userId: String, $pageName: String) {
+        createPage(userId: $userId, pageName: $pageName) {
+          pageId
+          pageName
+        }
+      }
+    `,
+    {
+      variables: {
+        pageName,
+        userId,
+      },
+    }
+  )
+
+  console.log({ loading, data })
 
   return (
     <Box>
