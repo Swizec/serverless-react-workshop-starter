@@ -20,6 +20,11 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Markdown Landing Page" />
+      <Heading fontSize={[2, 3, 6]}>Example app for workshop</Heading>
+
+      {isAuthenticated() ? <Dashboard /> : null}
+
+      <LoginButton />
     </Layout>
   )
 }

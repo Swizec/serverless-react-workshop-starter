@@ -8,5 +8,13 @@ export const LoginButton = () => {
 
   // render a login button
   // make sure users can logout as well
-  return null
+  return isAuthenticated() ? (
+    <Button bg="muted" onClick={logout}>
+      Logout
+    </Button>
+  ) : (
+    <Button bg="highlight" color="white" onClick={login}>
+      Get started
+    </Button>
+  )
 }
