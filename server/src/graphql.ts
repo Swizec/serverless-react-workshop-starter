@@ -1,7 +1,7 @@
 import { ApolloServer, gql } from "apollo-server-lambda";
 
 import { createPage } from "./mutations";
-// import { allPages, page } from "./queries";
+import { allPages } from "./queries";
 
 // this is where we define the shape of our API
 const schema = gql`
@@ -15,7 +15,7 @@ const schema = gql`
     }
 
     type Query {
-        helloworld: String
+        allPages: [LandingPage]
     }
 
     type Mutation {
@@ -26,7 +26,7 @@ const schema = gql`
 // this is where the shape maps to functions
 const resolvers = {
     Query: {
-        helloworld: () => "hello world"
+        allPages
     },
     Mutation: {
         createPage

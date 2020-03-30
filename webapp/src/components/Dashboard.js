@@ -27,8 +27,6 @@ const CreatePage = ({ userId }) => {
     }
   )
 
-  console.log({ loading, data })
-
   return (
     <Box>
       <Input
@@ -54,9 +52,23 @@ const CreatePage = ({ userId }) => {
 // custom hook to get a list of all pages for a user
 function useAllPages({ userId }) {
   // get initial page list with a static query
+  let data = useStaticQuery(graphql`
+    query {
+      mdlapi {
+        allPages {
+          userId
+          pageId
+          createdAt
+          pageName
+        }
+      }
+    }
+  `)
 
   // set local state with a filtered list
-  const pageList = []
+  const [pageList, setPageList] = useState(
+    data.mdlapi.allPages.filter(page => page.userId === userId)
+  )
 
   // use a query and effect combination to re-fetch and update the list
 
@@ -78,7 +90,13 @@ export const Dashboard = () => {
       <CreatePage userId={userId} />
       <br />
       <Heading>Edit your existing pages</Heading>
-      {/* list all your user's pages, link to their landingPage */}
+      {pageList.map(page => (
+        <Box>
+          <Link to={`/${page.pageId}`}>
+            {page.pageName} - {new Date(page.createdAt).toDateString()}
+          </Link>
+        </Box>
+      ))}
     </Box>
   )
 }
