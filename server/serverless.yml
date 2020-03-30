@@ -1,81 +1,13 @@
-service: markdownlandingpage
+service: serverless-react-workshop
 
 provider:
     name: aws
     runtime: nodejs12.x
     stage: ${opt:stage}
     environment:
-        USER_TABLE: ${self:service}-users-${self:provider.stage}
-        PAGE_TABLE: ${self:service}-pages-${self:provider.stage}
+
     iamRoleStatements:
-        - Effect: Allow
-          Action:
-              - dynamodb:Query
-              - dynamodb:Scan
-              - dynamodb:GetItem
-              - dynamodb:PutItem
-              - dynamodb:UpdateItem
-              - dynamodb:DeleteItem
-          Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.USER_TABLE}"
-        - Effect: Allow
-          Action:
-              - dynamodb:Query
-              - dynamodb:Scan
-              - dynamodb:GetItem
-              - dynamodb:PutItem
-              - dynamodb:UpdateItem
-              - dynamodb:DeleteItem
-          Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.PAGE_TABLE}"
 
 functions:
-    graphql:
-        handler: dist/graphql.handler
-        events:
-            - http:
-                  path: graphql
-                  method: GET
-                  cors: true
-            - http:
-                  path: graphql
-                  method: POST
-                  cors: true
-    createStripeSession:
-        handler: dist/createStripeSession.handler
-        events:
-            - http:
-                  path: createstripesession/{userId}/{pageId}
-                  method: GET
-                  cors: true
 
 resources:
-    Resources:
-        UsersTable:
-            Type: "AWS::DynamoDB::Table"
-            Properties:
-                AttributeDefinitions:
-                    - AttributeName: userId
-                      AttributeType: S
-                KeySchema:
-                    - AttributeName: userId
-                      KeyType: HASH
-                ProvisionedThroughput:
-                    ReadCapacityUnits: 1
-                    WriteCapacityUnits: 1
-                TableName: ${self:provider.environment.USER_TABLE}
-        PagesTable:
-            Type: "AWS::DynamoDB::Table"
-            Properties:
-                AttributeDefinitions:
-                    - AttributeName: userId
-                      AttributeType: S
-                    - AttributeName: pageId
-                      AttributeType: S
-                KeySchema:
-                    - AttributeName: userId
-                      KeyType: HASH
-                    - AttributeName: pageId
-                      KeyType: RANGE
-                ProvisionedThroughput:
-                    ReadCapacityUnits: 1
-                    WriteCapacityUnits: 1
-                TableName: ${self:provider.environment.PAGE_TABLE}

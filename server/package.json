@@ -22,6 +22,7 @@
         "graphql": "^14.5.8",
         "isomorphic-fetch": "^2.2.1",
         "serverless-dotenv-plugin": "^2.3.2",
+        "simple-dynamodb": "^1.0.0",
         "stripe": "^8.20.0",
         "uuid": "^3.3.3"
     }

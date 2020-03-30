@@ -1,48 +1,15 @@
 import { ApolloServer, gql } from "apollo-server-lambda";
 
-import { updateUser, createPage, savePage } from "./mutations";
+import { createPage, savePage } from "./mutations";
 import { allPages, page } from "./queries";
 
 // this is where we define the shape of our API
-const schema = gql`
-    type User {
-        userId: String
-        createdAt: String
-        lastSignedInAt: String
-    }
-
-    type LandingPage {
-        userId: String
-        pageId: String
-        createdAt: String
-        lastUpdatedAt: String
-        pageName: String
-        content: String
-    }
-
-    type Query {
-        allPages: [LandingPage]
-        page(userId: String, pageId: String): LandingPage
-    }
-
-    type Mutation {
-        updateUser(userId: String): User
-        createPage(userId: String, pageName: String): LandingPage
-        savePage(userId: String, pageId: String, content: String): LandingPage
-    }
-`;
+const schema = gql``;
 
 // this is where the shape maps to functions
 const resolvers = {
-    Query: {
-        allPages,
-        page
-    },
-    Mutation: {
-        updateUser,
-        createPage,
-        savePage
-    }
+    Query: {},
+    Mutation: {}
 };
 
 const server = new ApolloServer({ typeDefs: schema, resolvers });

@@ -8,21 +8,8 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 
 const CreatePage = ({ userId }) => {
   const [pageName, setPageName] = useState()
-  const [createPage, { data, loading }] = useMutation(
-    gql`
-      mutation createPage($userId: String, $pageName: String) {
-        createPage(userId: $userId, pageName: $pageName) {
-          pageId
-        }
-      }
-    `,
-    {
-      variables: {
-        pageName,
-        userId,
-      },
-    }
-  )
+  // write a mutation to create a new page
+  const [createPage, { data, loading }] = useMutation()
 
   return (
     <Box>
@@ -46,44 +33,13 @@ const CreatePage = ({ userId }) => {
   )
 }
 
+// custom hook to get a list of all pages for a user
 function useAllPages({ userId }) {
-  let data = useStaticQuery(graphql`
-    query {
-      mdlapi {
-        allPages {
-          userId
-          pageId
-          createdAt
-          pageName
-        }
-      }
-    }
-  `)
+  // get initial page list with a static query
 
-  // TODO: this is insecure, we should filter on the server
-  const [pageList, setPageList] = useState(
-    data.mdlapi.allPages.filter(page => page.userId === userId)
-  )
+  // set local state with a filtered list
 
-  const liveQuery = useQuery(gql`
-    query {
-      allPages {
-        userId
-        pageId
-        createdAt
-        pageName
-      }
-    }
-  `)
-
-  useEffect(() => {
-    // if data loaded successfully
-    if (liveQuery.data) {
-      setPageList(
-        liveQuery.data.allPages.filter(page => page.userId === userId)
-      )
-    }
-  }, [liveQuery.data])
+  // use a query and effect combination to re-fetch and update the list
 
   return pageList
 }
@@ -103,13 +59,7 @@ export const Dashboard = () => {
       <CreatePage userId={userId} />
       <br />
       <Heading>Edit your existing pages</Heading>
-      {pageList.map(page => (
-        <Box>
-          <Link to={`/${page.pageId}`}>
-            {page.pageName} - {new Date(page.createdAt).toDateString()}
-          </Link>
-        </Box>
-      ))}
+      {/* list all your user's pages, link to their landingPage */}
     </Box>
   )
 }

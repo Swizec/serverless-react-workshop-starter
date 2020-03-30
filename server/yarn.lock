@@ -1249,6 +1249,11 @@ sha.js@^2.4.11:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+simple-dynamodb@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/simple-dynamodb/-/simple-dynamodb-1.0.0.tgz#1f678006124eaa528de94b390565ec59473f56ba"
+  integrity sha512-OulkWiNRM24IIHg/sM5ngis563yPFW3oK2a5fC40BhY2k33LcCpIo6V9024SN/JYEbXvUJWK2EDQw3RIpCmLag==
+
 "statuses@>= 1.5.0 < 2", statuses@~1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"

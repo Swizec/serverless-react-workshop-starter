@@ -11,17 +11,15 @@ import { LoginButton } from "../components/LoginButton"
 import { Dashboard } from "../components/Dashboard"
 
 const IndexPage = () => {
-  const { isAuthenticated, user, login } = useAuth()
+  const { isAuthenticated } = useAuth()
+
+  // create a simple landing page
+  // add the LoginButton and Dashboard
+  // try to play around with Rebass's responsive features
 
   return (
     <Layout>
       <SEO title="Markdown Landing Page" />
-      <Heading fontSize={[5, 6, 7]}>Markdown Landing Page</Heading>
-      <p>Write a landing page for anything</p>
-
-      {isAuthenticated() ? <Dashboard /> : null}
-
-      <LoginButton />
     </Layout>
   )
 }

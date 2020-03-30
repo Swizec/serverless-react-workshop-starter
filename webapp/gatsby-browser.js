@@ -12,16 +12,11 @@ import { ApolloProvider } from "react-apollo-hooks"
 
 import { client } from "./src/apollo"
 
-const Root = ({ element }) => (
+// Add your Auth0 config values
+export const wrapRootElement = ({ element }) => (
   <ApolloProvider client={client}>
-    <AuthProvider
-      navigate={navigate}
-      auth0_domain="markdownlandingpage.auth0.com"
-      auth0_client_id="i3LXZVSWk6ZuXFHlGtr7UV8ni3Cz4mi2"
-    >
+    <AuthProvider navigate={navigate} auth0_domain="" auth0_client_id="">
       {element}
     </AuthProvider>
   </ApolloProvider>
 )
-
-export const wrapRootElement = ({ element }) => <Root element={element} />
